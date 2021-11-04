@@ -1,0 +1,1 @@
+/usr/bin/c++.exe -g -Wl,--enable-auto-import CMakeFiles/Sem3Lab2.dir/main.cpp.o -o Sem3Lab2.exe -Wl,--out-implib,libSem3Lab2.dll.a -Wl,--major-image-version,0,--minor-image-version,0 

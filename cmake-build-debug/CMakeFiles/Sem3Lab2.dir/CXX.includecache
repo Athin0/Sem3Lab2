@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
+DynamicArray.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/DynamicArray.h
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h
+Tree.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Tree.h
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/DynamicArray.h
+iostream
+-
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Person.h
+string
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/string
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Tree.h
+iostream
+-
+ArraySequence.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/main.cpp
+iostream
+-
+ArraySequence.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
+Person.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Person.h
+Tree.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Tree.h
+Dictionary.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h
+
