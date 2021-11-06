@@ -7,10 +7,10 @@
 
 #include "Tree.h"
 
+
 template<class TKey, class TElem>
 struct Pair_for_dict {
     Pair_for_dict() {
-
     }
 
     TKey key;
@@ -35,6 +35,7 @@ struct Pair_for_dict {
 };
 
 
+
 template<class TKey, class TElem>
 class Dictionary {
 private:
@@ -43,6 +44,9 @@ private:
     bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>);
 
 public:
+    Dictionary() {
+    }
+
     Dictionary(TKey key, TElem element, bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
         Pair_for_dict<TKey, TElem> initial(key, element);
         this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(initial, cmp);
@@ -70,6 +74,7 @@ public:
         }
     }
 
+
     ~Dictionary() {
         delete tree;
     }
@@ -82,7 +87,7 @@ public:
         Pair_for_dict<TKey, TElem> pair_for_search;
         pair_for_search.key = input_key;
         if (tree->Find(pair_for_search))
-            return (tree->tree->GetNode(pair_for_search)).element;
+            return (tree->GetNode(pair_for_search)).GetElem();
     }
 
     bool ContainsKey(TKey input_key) {
@@ -105,8 +110,8 @@ public:
 
     void Print() {
         auto arr = this->tree->GetKeyArray();
-        for (int i = 0; i < arr->GetLength(); i++)
-            cout << arr->Get(i).key << " - " << arr->Get(i).element << "\n";
+        for (int i = 0; i < arr.GetLength(); i++)
+            cout << arr.Get(i).key << " - " << arr.Get(i).element << "\n";
     }
 
 };

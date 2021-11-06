@@ -77,9 +77,6 @@ string to_string(Person &person) {
     return person.GetFullName();
 }
 
-bool cmp(Person a, Person b) {
-    return (a.GetBirthYear() > b.GetBirthYear());
-}
 
 #endif //SEM3LAB2_PERSON_H
 

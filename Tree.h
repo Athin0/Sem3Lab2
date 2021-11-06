@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include "ArraySequence.h"
-
+//#include "Comparators.h"
 
 bool cmpInt(int a, int b) {
     return a > b;
@@ -290,7 +290,7 @@ public:
         root = nullptr;
         cmp = cmp2;
         for (int i = 0; i < arraySequence.GetLength(); i++)
-            Insert(arraySequence[i], 0);
+            Insert(arraySequence[i]);
     }
 
     BinaryTree(const BinaryTree<T> &binaryTree, bool (*cmp2)(T, T) = cmpInt) {
@@ -322,9 +322,8 @@ public:
 
     void Remove(T item) {
         root = Remove(root, item);
-        ArraySequence<T> arr;
-        In_Str_Key(root, &arr, 1, 2, 3);
-        auto *res = new BinaryTree<T>(arr);
+        ArraySequence<T> arr = GetKeyArray();
+        auto *res = new BinaryTree<T>(arr, cmp);
         DeleteNode(root);
         root = res->root;
     }
@@ -339,8 +338,8 @@ public:
         return FindNode(root, item);
     }
 
-    Node *GetNode(T data) {
-        return FindNode(root, data);
+    T GetNode(T data) {
+        return FindNode(root, data)->key;
     };
 
     BinaryTree *SubTree(T item) {
@@ -400,10 +399,10 @@ public:
     }
 
 
-    ArraySequence<T> *GetKeyArray() {
+    ArraySequence<T> GetKeyArray() {
         auto arr = new ArraySequence<T>;
         GetArr(root, arr);
-        return arr;
+        return *arr;
     }
 
 

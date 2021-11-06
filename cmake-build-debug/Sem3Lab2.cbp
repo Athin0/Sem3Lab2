@@ -83,10 +83,16 @@
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h">
 			<Option target="Sem3Lab2"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Comparators.h">
+			<Option target="Sem3Lab2"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h">
 			<Option target="Sem3Lab2"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/DynamicArray.h">
+			<Option target="Sem3Lab2"/>
+		</Unit>
+		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h">
 			<Option target="Sem3Lab2"/>
 		</Unit>
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Person.h">
