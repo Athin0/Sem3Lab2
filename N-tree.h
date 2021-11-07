@@ -11,7 +11,7 @@
 template<class T>
 class Node {
 private:
-    ArraySequence<Node> children;
+    ArraySequence<Node *> children;
     ArraySequence<T> value;
 
     bool (*rule)(ArraySequence<T> value);
@@ -23,17 +23,20 @@ public:
         //delete value;
     };
 
-    Node() {};
+    Node() {
+
+
+    };
 
     Node(bool (*rule)(ArraySequence<T> value)) : rule(rule) {};
 
     void AddToNode(ArraySequence<T> elements) {
         for (int i = 0; i < elements.GetLength(); i++) {
-            auto node = new Node<T>();
+            auto node = new Node<T>(rule);
             node->value = this->value;
             node->value.Append(elements.Get(i));
             if (rule(node->value)) {
-                this->children.Append(*node);
+                this->children.Append(node);
             } else
                 delete node;
         }
@@ -42,27 +45,30 @@ public:
     void Add(ArraySequence<T> elements) {
         if (!children.GetLength()) {
             for (int i = 0; i < elements.GetLength(); i++) {
-                auto node = new Node<T>();
+                auto node = new Node<T>(rule);
+                node->value = this->value;
                 node->value.Append(elements.Get(i));
                 if (rule(node->value)) {
-                    this->children.Append(*node);
+                    this->children.Append(node);
                 } else
                     delete node;
             }
-
         }
-        for (int i = 1; i < children.GetLength(); i++) {
-            children.Get(i).AddToNode(elements);
-            children.Get(i).Add(elements);
+        for (int i = 0; i < children.GetLength(); i++) {
+            children.Get(i)->AddToNode(elements);
+            children.Get(i)->Add(elements);
         }
     };
 
-    void print() {
-        cout << value << "  ";
+    void print(int n = 0) {
+
+        for (int k = 0; k < n; k++)
+            cout << "      ";
+        cout << value << " \n";
+
         for (int i = 0; i < children.GetLength(); i++) {
-            children.Get(i).print();
+            children.Get(i)->print(n + 1);
         }
-        cout << "\n";
     };
 };
 

@@ -12,11 +12,12 @@ int GetIntFromPerson(Person men) {
 }
 
 bool rule(ArraySequence<Person> value) {
-    if (value.GetLength() > 9) return false;
+    // if (value.GetLength() > 3) return false;
     if (value.GetLength() <= 1) return true;
-    for (int i = 1; i < value.GetLength(); i++) {
-        if (value.Get(i).GetBirthYear() != value.Get(i - 1).GetBirthYear())
-            return false;
+    for (int i = 0; i < value.GetLength(); i++) {
+        for (int j = i + 1; j < value.GetLength(); j++)
+            if ((value.Get(i).GetBirthYear() != value.Get(j).GetBirthYear()) || (value.Get(i) == value.Get(j)))
+                return false;
     }
     return true;
 };
