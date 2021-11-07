@@ -75,11 +75,11 @@ public:
         return even_dict;
     }
 
-    Dictionary<int, int> *uneven_partition(ArraySequence<int> *seq) {
+    Dictionary<int, int> *uneven_partition(ArraySequence<int> &seq) {
         Dictionary<int, int> *uneven_dict = new Dictionary<int, int>(this->cmp);
         int summary_count = 0;
-        for (int i = seq->GetFirst(), j = 1; i < seq->GetLast(); i++) {
-            if (i < seq->Get(j)) {
+        for (int i = seq.GetFirst(), j = 1; i < seq.GetLast(); i++) {
+            if (i < seq.Get(j)) {
                 if (dict->ContainsKey(i)) {
                     summary_count += dict->Get(i);
                 }
@@ -87,19 +87,19 @@ public:
                 if (dict->ContainsKey(i)) {
                     summary_count += dict->Get(i);
                 }
-                uneven_dict->Add(seq->Get(j), summary_count);
+                uneven_dict->Add(seq.Get(j), summary_count);
                 j++;
                 summary_count = 0;
             }
         }
-        if (dict->ContainsKey(seq->GetLast()))
-            summary_count += dict->Get(seq->GetLast());
-        uneven_dict->Add(seq->GetLast(), summary_count);
+        if (dict->ContainsKey(seq.GetLast()))
+            summary_count += dict->Get(seq.GetLast());
+        uneven_dict->Add(seq.GetLast(), summary_count);
         return uneven_dict;
     }
 
     void print() {
-        dict->Print();
+        dict->print();
     }
 };
 

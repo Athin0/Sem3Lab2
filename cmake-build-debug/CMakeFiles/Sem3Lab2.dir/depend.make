@@ -3,8 +3,11 @@
 
 CMakeFiles/Sem3Lab2.dir/main.cpp.o: \
  ../ArraySequence.h \
+ ../Comparators.h \
  ../Dictionary.h \
  ../DynamicArray.h \
+ ../Histogram.h \
+ ../N-tree.h \
  ../Person.h \
  ../Tree.h \
  ../main.cpp

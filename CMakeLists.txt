@@ -3,4 +3,4 @@ project(Sem3Lab2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Sem3Lab2 main.cpp ArraySequence.h DynamicArray.h Person.h Tree.h Dictionary.h Histogram.h Comparators.h)
+add_executable(Sem3Lab2 main.cpp ArraySequence.h DynamicArray.h Person.h Tree.h Dictionary.h Histogram.h Comparators.h N-tree.h)

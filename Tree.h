@@ -166,7 +166,7 @@ private:
     void Print(Node *node) {
         if(node == nullptr)
             return;
-        Print(node->left);
+        print(node->left);
         std::cout<<"/ \t";
         std::cout << node->key << " ";
         std::cout<<"\t|";

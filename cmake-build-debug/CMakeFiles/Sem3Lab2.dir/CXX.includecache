@@ -10,6 +10,10 @@
 DynamicArray.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/DynamicArray.h
 
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Comparators.h
+Histogram.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h
+
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h
 Tree.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Tree.h
@@ -17,6 +21,16 @@ Tree.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/DynamicArray.h
 iostream
 -
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h
+Dictionary.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/N-tree.h
+Comparators.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Comparators.h
+ArraySequence.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
 
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Person.h
 string
@@ -39,4 +53,10 @@ Tree.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Tree.h
 Dictionary.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Dictionary.h
+Histogram.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h
+Comparators.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Comparators.h
+N-tree.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/N-tree.h
 

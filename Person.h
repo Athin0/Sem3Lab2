@@ -23,6 +23,8 @@ public:
 
     Person() {};
 
+    ~Person() {};
+
     string GetFirstName() {
         return FirstName;
     };

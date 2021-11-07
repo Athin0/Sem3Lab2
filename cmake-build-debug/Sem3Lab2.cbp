@@ -95,6 +95,9 @@
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h">
 			<Option target="Sem3Lab2"/>
 		</Unit>
+		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/N-tree.h">
+			<Option target="Sem3Lab2"/>
+		</Unit>
 		<Unit filename="/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Person.h">
 			<Option target="Sem3Lab2"/>
 		</Unit>

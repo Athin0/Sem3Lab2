@@ -5,10 +5,21 @@
 #include "Dictionary.h"
 #include "Histogram.h"
 #include "Comparators.h"
+#include "N-tree.h"
 
 int GetIntFromPerson(Person men) {
     return men.GetBirthYear();
 }
+
+bool rule(ArraySequence<Person> value) {
+    if (value.GetLength() > 9) return false;
+    if (value.GetLength() <= 1) return true;
+    for (int i = 1; i < value.GetLength(); i++) {
+        if (value.Get(i).GetBirthYear() != value.Get(i - 1).GetBirthYear())
+            return false;
+    }
+    return true;
+};
 
 int main() {
     int arr1[] = {1, 2, 3, 4, 7};
@@ -28,14 +39,17 @@ int main() {
     }
 
     Dictionary<int, Person> dictionary(arr1, name, 3, cmp);
-    dictionary.Print();
-
+    int time[] = {2000, 2005, 2017, 2090};
+    ArraySequence<int> timeArr(time, 4);
     Histogram<Person> *a = new Histogram<Person>(GetIntFromPerson, cmp);
     for (int i = 0; i < personsArr.GetLength(); i++)
         a->Add(personsArr[i]);
-    auto b = a->even_partition(1987, 2056, 2);
-    b->Print();
+    auto b = a->uneven_partition(timeArr);
+    b->print();
 
+    Node<Person> desidetree(rule);
+    desidetree.Add(personsArr);
+    desidetree.print();
     cout << personsArr;
     return 0;
 }

@@ -108,7 +108,7 @@ public:
     }
 
 
-    void Print() {
+    void print() {
         auto arr = this->tree->GetKeyArray();
         for (int i = 0; i < arr.GetLength(); i++)
             cout << arr.Get(i).key << " - " << arr.Get(i).element << "\n";
