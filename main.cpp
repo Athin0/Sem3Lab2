@@ -6,6 +6,8 @@
 #include "Histogram.h"
 #include "Comparators.h"
 #include "N-tree.h"
+#include "Bag.h"
+#include "meny.h"
 
 int GetIntFromPerson(Person men) {
     return men.GetBirthYear();
@@ -23,7 +25,13 @@ bool rule(ArraySequence<Person> value) {
 };
 
 int main() {
-    int arr1[] = {1, 2, 3, 4, 7};
+    meny();
+
+    return 0;
+}
+
+/*
+ * int arr1[] = {1, 2, 3, 4, 7};
     int arr2[] = {1, 2, 3, 4, 7};
 
     Person man1("Arur", 2003);
@@ -52,8 +60,9 @@ int main() {
     desidetree.Add(personsArr);
     desidetree.print();
     cout << personsArr;
-    return 0;
-}
+
+
+ */
 
 //int arr[]={1,2,3,4,7};
 //    ArraySequence<int> a(arr,5);

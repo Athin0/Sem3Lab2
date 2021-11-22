@@ -3,6 +3,7 @@
 
 CMakeFiles/Sem3Lab2.dir/main.cpp.o: \
  ../ArraySequence.h \
+ ../Bag.h \
  ../Comparators.h \
  ../Dictionary.h \
  ../DynamicArray.h \
@@ -10,4 +11,5 @@ CMakeFiles/Sem3Lab2.dir/main.cpp.o: \
  ../N-tree.h \
  ../Person.h \
  ../Tree.h \
- ../main.cpp
+ ../main.cpp \
+ ../meny.h

@@ -7,6 +7,8 @@
 
 #include "Comparators.h"
 #include "ArraySequence.h"
+#include "Bag.h"
+#include "Dictionary.h"
 
 template<class T>
 class Node {
@@ -14,49 +16,44 @@ private:
     ArraySequence<Node *> children;
     ArraySequence<T> value;
 
-    bool (*rule)(ArraySequence<T> value);
+    bool (*rule)(ArraySequence<T> value, Bag bag);
 
 public:
 
-    ~Node() {
-        //delete children;
-        //delete value;
-    };
+//    Node() {
+//children= nullptr;
+//value= nullptr;
+//};
 
-    Node() {
+    Node(bool (*rule)(ArraySequence<T> value, Bag bag)) : rule(rule) {};
 
-
-    };
-
-    Node(bool (*rule)(ArraySequence<T> value)) : rule(rule) {};
-
-    void AddToNode(ArraySequence<T> elements) {
-        for (int i = 0; i < elements.GetLength(); i++) {
+    void AddToNode(ArraySequence<T> *elements, Bag *bag) {
+        for (int i = 0; i < elements->GetLength(); i++) {
             auto node = new Node<T>(rule);
-            node->value = this->value;
-            node->value.Append(elements.Get(i));
-            if (rule(node->value)) {
-                this->children.Append(node);
+            node->value = value;
+            node->value.Append(elements->Get(i));
+            if (rule((node->value), *bag)) {
+                children.Append(node);
             } else
                 delete node;
         }
     };
 
-    void Add(ArraySequence<T> elements) {
+    void Add(ArraySequence<T> *elements, Bag *bag) {
         if (!children.GetLength()) {
-            for (int i = 0; i < elements.GetLength(); i++) {
+            for (int i = 0; i < elements->GetLength(); i++) {
                 auto node = new Node<T>(rule);
-                node->value = this->value;
-                node->value.Append(elements.Get(i));
-                if (rule(node->value)) {
-                    this->children.Append(node);
+                node->value = value;
+                node->value.Append(elements->Get(i));
+                if (rule((node->value), *bag)) {
+                    children.Append(node);
                 } else
                     delete node;
             }
         }
         for (int i = 0; i < children.GetLength(); i++) {
-            children.Get(i)->AddToNode(elements);
-            children.Get(i)->Add(elements);
+            children.Get(i)->AddToNode(elements, bag);
+            children.Get(i)->Add(elements, bag);
         }
     };
 
@@ -70,6 +67,25 @@ public:
             children.Get(i)->print(n + 1);
         }
     };
+
+    friend std::ostream &operator<<(std::ostream &out, Node<T> *ntree) {
+        cout << ntree->value;
+    };
+
+    friend
+    std::ostream &operator<<(std::ostream &out, Node<T> ntree) {
+        cout << ntree.value;
+    };
+
+
+    void GetArray(ArraySequence<ArraySequence<T>> *array) {
+        if (children.GetLength() == 0) {
+            array->Append(value);
+            return;
+        }
+        for (int i = 0; i < children.GetLength(); i++)
+            children.Get(i)->GetArray(array);
+    }
 };
 
 
@@ -78,9 +94,42 @@ class NTree {
 private:
     Node<T> *root;
 public:
-    NTree(bool (*rule)(ArraySequence<T> value)) {
+    NTree(bool (*rule)(ArraySequence<T> value, Bag bag)) {
         root = new Node<T>(rule);
     }
+
+    void Add(ArraySequence<T> *elements, Bag *bag) {
+        root->Add(elements, bag);
+    };
+
+    ArraySequence<ArraySequence<T>> Get() {
+        auto array = new ArraySequence<ArraySequence<T>>;
+        root->GetArray(array);
+        return *array;
+    }
+
+    friend std::ostream &operator<<(std::ostream &out, NTree<T> ntree) {
+        ntree.root->print();
+    };
+
+    friend std::ostream &operator<<(std::ostream &out, NTree<T> *ntree) {
+        ntree->root->print();
+    };
+};
+
+bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object>> pair1, Pair_for_dict<int, ArraySequence<object>> pair2) {
+    return pair1.key > pair2.key;
+}
+
+
+template<class T>
+Dictionary<int, ArraySequence<T>> Decision(NTree<T> ntree) {
+    auto decision = new Dictionary<int, ArraySequence<T>>(cmpObjectsArray);
+    ArraySequence<ArraySequence<T>> array = ntree.Get();
+    for (int i = 0; i < array.GetLength(); i++) {
+        decision->Add(GetSumPrice(array.Get(i)), array.Get(i));
+    }
+    return *decision;
 };
 
 #endif //SEM3LAB2_N_TREE_H

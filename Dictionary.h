@@ -32,6 +32,10 @@ struct Pair_for_dict {
         return element;
     }
 
+    friend std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
+        cout << pair.key << "-" << pair.element;
+    };
+
 };
 
 
@@ -52,13 +56,7 @@ public:
         this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(initial, cmp);
         this->cmp = cmp;
     }
-    //is it work?
-    //Dictionary(TKey key, TElem element, bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict <TKey, TElem>)) {
-    //    this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
-    //    Pair_for_dict<TKey, TElem> initial{ key, element};
-    //    this->tree->Insert(initial);
-    //    this->cmp = cmp;
-    //}
+
 
     explicit Dictionary(bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
         this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
@@ -97,7 +95,12 @@ public:
     }
 
     void Add(TKey input_key, TElem input_element) {
-        Pair_for_dict<TKey, TElem> for_add_pair{input_key, input_element};
+        Pair_for_dict<TKey, TElem> for_add_pair(input_key, input_element);
+        tree->Insert(for_add_pair);
+    }
+
+
+    void Add(Pair_for_dict<TKey, TElem> for_add_pair) {
         tree->Insert(for_add_pair);
     }
 
@@ -111,9 +114,17 @@ public:
     void print() {
         auto arr = this->tree->GetKeyArray();
         for (int i = 0; i < arr.GetLength(); i++)
-            cout << arr.Get(i).key << " - " << arr.Get(i).element << "\n";
+            cout << arr.Get(i) << "\n";
     }
 
+    ArraySequence<Pair_for_dict<TKey, TElem>> Get() {
+        return *(this->tree->GetKeyArray());
+    }
+};
+
+template<class T, class K>
+std::ostream &operator<<(std::ostream &out, Dictionary<T, K> diction) {
+    diction.print();
 };
 
 
