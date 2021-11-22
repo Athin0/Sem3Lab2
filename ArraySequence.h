@@ -99,7 +99,6 @@ public:
     }
 
     int GetLength() const {
-        //const ArraySequence<int> *a = this;
         return dynamicArray.GetLength();
     }
 

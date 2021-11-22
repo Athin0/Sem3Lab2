@@ -112,18 +112,18 @@ public:
 
 
     void print() {
-        auto arr = this->tree->GetKeyArray();
+        auto arr = tree->GetKeyArray();
         for (int i = 0; i < arr.GetLength(); i++)
             cout << arr.Get(i) << "\n";
     }
 
     ArraySequence<Pair_for_dict<TKey, TElem>> Get() {
-        return *(this->tree->GetKeyArray());
+        return tree->GetKeyArray();
     }
 };
 
 template<class T, class K>
-std::ostream &operator<<(std::ostream &out, Dictionary<T, K> diction) {
+std::ostream &operator<<(std::ostream &out, Dictionary<T, K> &diction) {
     diction.print();
 };
 

@@ -61,8 +61,8 @@ template<class T>
 ArraySequence<T> EnterElements() {
     auto array = new ArraySequence<T>();
     cout << "\n Введите количество объектов:";
-    //int n = GetInt(0);
-    int n = 4;
+    int n = GetInt(0);
+    //int n = 4;
     for (int i = 0; i < n; i++) {
         auto object_temp = EnterObjectRand();
         array->Append(object_temp);
@@ -73,27 +73,36 @@ ArraySequence<T> EnterElements() {
 
 Bag EnterBag() {
     cout << "Введите максимально допустимый вес рюкзака:";
-    int m_weight = 1000;//GetInt(0);
+    int m_weight = GetInt(0);
     cout << "Введите объем рюкзака:";
-    int m_volume = 1200;//GetInt(0);
+    int m_volume = GetInt(0);
 
     return *(new Bag(m_weight, m_volume));
 }
 
-Dictionary<int, ArraySequence<object>> GetDecision(ArraySequence<object> *arrayObjects, Bag *bag) {
-    NTree<object> tree(rule_for_bag);  //(ArraySequence<object>()))
+Dictionary<int, ArraySequence<object>> GetDecisions(ArraySequence<object> *arrayObjects, Bag *bag) {
+    NTree<object> tree(rule_for_bag);
     tree.Add(arrayObjects, bag);
     Dictionary<int, ArraySequence<object>> des = Decision(tree);
     return des;
+};
+
+template<class TKey, class TElem>
+Pair_for_dict<TKey, TElem> GetBestDecision(Dictionary<TKey, TElem> &dict) {
+    auto arr = dict.Get();
+    Pair_for_dict<TKey, TElem> ans = arr.Get(arr.GetLength() - 1);
+    return ans;
+    //return ;
 };
 
 void meny() {
     auto objects = EnterElements<object>();
     cout << objects << "\n";
     auto bag = EnterBag();
-    Dictionary<int, ArraySequence<object>> array = GetDecision(&objects, &bag);
-    cout << "\n Answer \n " << array;
-
+    Dictionary<int, ArraySequence<object>> array = GetDecisions(&objects, &bag);
+    //cout << "\n Answer\n " << array;
+    auto bestDecision = GetBestDecision(array);
+    cout << "\n Best Decision\n " << bestDecision;
 
 }
 

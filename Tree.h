@@ -96,7 +96,7 @@ private:
             return node;
         } else if (cmp(node->key, x))
             node->left = InsertNonBalance(node->left, x);
-        else if (cmp(x, node->key))
+        else if (!(cmp(node->key, x)))
             node->right = InsertNonBalance(node->right, x);
         return node;
     }
@@ -107,7 +107,7 @@ private:
             return node;
         } else if (cmp(node->key, x))
             node->left = Insert(node->left, x);
-        else if (cmp(x, node->key))
+        else if (!(cmp(node->key, x)))
             node->right = Insert(node->right, x);
 
         node->updateHeight();
@@ -145,7 +145,7 @@ private:
             return nullptr;
         else if (cmp(node->key, x)) {
             node->left = Remove(node->left, x);
-        } else if (cmp(x, node->key)) {
+        } else if (!(cmp(node->key, x))) {
             node->right = Remove(node->right, x);
         } else if (node->left && node->right) {
             temp = FindMin(node->right);
@@ -205,7 +205,7 @@ private:
             return nullptr;
         } else if (cmp(node->key, data))
             return FindNode(node->left, data);
-        else if (cmp(data, node->key))
+        else if (!(cmp(node->key, data)))
             return FindNode(node->right, data);
         else
             return node;

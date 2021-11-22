@@ -177,14 +177,14 @@ std::ostream &operator<<(std::ostream &cout, DynamicArray<T> dynamicArray) {
 
 template<class T>
 std::ostream &operator<<(std::ostream &cout, DynamicArray<T> *dynamicArray) {
-    cout << '{';
+    cout << '[';
     for (int i = 0; i < dynamicArray->GetLength(); i++) {
         cout << (*dynamicArray)[i];
         if (i < dynamicArray->GetLength() - 1) {
             cout << ", ";
         }
     }
-    return cout << '}';
+    return cout << ']';
 }
 
 #endif //SEM3LAB2_DYNAMICARRAY_H
