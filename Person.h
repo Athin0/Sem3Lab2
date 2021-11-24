@@ -80,5 +80,32 @@ string to_string(Person &person) {
 }
 
 
+std::ostream &operator>>(std::ostream &in, Person person) {
+    string name;
+    int age;
+    cout << "Enter name: ";
+    cin >> name;
+    cout << endl;
+    cout << "Enter age: ";
+    cin >> age;
+    cout << endl;
+
+    return in;
+}
+
+
+Person create() {
+    string name;
+    int age;
+    cout << "Enter name: ";
+    cin >> name;
+    cout << endl;
+    cout << "Enter age: ";
+    cin >> age;
+    cout << endl;
+    return *(new Person(name, age));
+
+}
+
 #endif //SEM3LAB2_PERSON_H
 

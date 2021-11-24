@@ -83,15 +83,15 @@ Bag EnterBag() {
 Dictionary<int, ArraySequence<object>> GetDecisions(ArraySequence<object> *arrayObjects, Bag *bag) {
     NTree<object> tree(rule_for_bag);
     tree.Add(arrayObjects, bag);
-    Dictionary<int, ArraySequence<object>> des = Decision(tree);
-    return des;
+//    Dictionary<int, ArraySequence<object>> des = Decision(tree);
+    return Decision(tree);
 };
 
 template<class TKey, class TElem>
 Pair_for_dict<TKey, TElem> GetBestDecision(Dictionary<TKey, TElem> &dict) {
     auto arr = dict.Get();
-    Pair_for_dict<TKey, TElem> ans = arr.Get(arr.GetLength() - 1);
-    return ans;
+//    Pair_for_dict<TKey, TElem> ans = arr.Get(arr.GetLength() - 1);
+    return arr.Get(arr.GetLength() - 1);
     //return ;
 };
 
@@ -100,7 +100,7 @@ void meny() {
     cout << objects << "\n";
     auto bag = EnterBag();
     Dictionary<int, ArraySequence<object>> array = GetDecisions(&objects, &bag);
-    //cout << "\n Answer\n " << array;
+    cout << "\n Answer\n " << array;
     auto bestDecision = GetBestDecision(array);
     cout << "\n Best Decision\n " << bestDecision;
 

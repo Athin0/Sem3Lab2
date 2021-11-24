@@ -80,9 +80,7 @@ private:
     bool (*cmp)(T, T);
 
     Node *DeleteNode(Node *node) {
-        if (node == nullptr)
-            return nullptr;
-        {
+        if (node != nullptr) {
             DeleteNode(node->left);
             DeleteNode(node->right);
             delete node;
@@ -264,7 +262,6 @@ private:
         }
         WhereNode(node->left, func, tree);
         WhereNode(node->right, func, tree);
-        return;
     }
 
 public:

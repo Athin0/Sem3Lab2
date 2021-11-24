@@ -69,14 +69,12 @@ public:
     };
 
     friend std::ostream &operator<<(std::ostream &out, Node<T> *ntree) {
-        cout << ntree->value;
+        return cout << ntree->value;
     };
 
-    friend
-    std::ostream &operator<<(std::ostream &out, Node<T> ntree) {
-        cout << ntree.value;
+    friend std::ostream &operator<<(std::ostream &out, Node<T> ntree) {
+        return cout << ntree.value;
     };
-
 
     void GetArray(ArraySequence<ArraySequence<T>> *array) {
         if (children.GetLength() == 0) {
@@ -103,17 +101,19 @@ public:
     };
 
     ArraySequence<ArraySequence<T>> Get() {
-        auto array = new ArraySequence<ArraySequence<T>>;
-        root->GetArray(array);
-        return *array;
+        ArraySequence<ArraySequence<T>> array;
+        root->GetArray(&array);
+        return array;
     }
 
     friend std::ostream &operator<<(std::ostream &out, NTree<T> ntree) {
         ntree.root->print();
+        return out;
     };
 
     friend std::ostream &operator<<(std::ostream &out, NTree<T> *ntree) {
         ntree->root->print();
+        return out;
     };
 };
 
@@ -124,12 +124,12 @@ bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object>> pair1, Pair_for_d
 
 template<class T>
 Dictionary<int, ArraySequence<T>> Decision(NTree<T> ntree) {
-    auto decision = new Dictionary<int, ArraySequence<T>>(cmpObjectsArray);
+    Dictionary<int, ArraySequence<T>> decision(cmpObjectsArray);
     ArraySequence<ArraySequence<T>> array = ntree.Get();
     for (int i = 0; i < array.GetLength(); i++) {
-        decision->Add(GetSumPrice(array.Get(i)), array.Get(i));
+        decision.Add(GetSumPrice(array.Get(i)), array.Get(i));
     }
-    return *decision;
-};
+    return decision;
+}
 
 #endif //SEM3LAB2_N_TREE_H

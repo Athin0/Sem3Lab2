@@ -10,8 +10,7 @@
 
 template<class TKey, class TElem>
 struct Pair_for_dict {
-    Pair_for_dict() {
-    }
+    Pair_for_dict() = default;
 
     TKey key;
     TElem element;
@@ -33,7 +32,7 @@ struct Pair_for_dict {
     }
 
     friend std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
-        cout << pair.key << "-" << pair.element;
+        return cout << pair.key << "-" << pair.element;
     };
 
 };
@@ -125,6 +124,7 @@ public:
 template<class T, class K>
 std::ostream &operator<<(std::ostream &out, Dictionary<T, K> &diction) {
     diction.print();
+    return out;
 };
 
 
