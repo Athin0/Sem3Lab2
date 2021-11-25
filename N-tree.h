@@ -14,53 +14,38 @@ template<class T>
 class Node {
 private:
     ArraySequence<Node *> children;
-    ArraySequence<T> value;
+    ArraySequence<T *> value;
 
-    bool (*rule)(ArraySequence<T> value, Bag bag);
+    bool (*rule)(ArraySequence<T *> *value, Bag bag);
 
 public:
 
-//    Node() {
-//children= nullptr;
-//value= nullptr;
-//};
+    Node(bool (*rule)(ArraySequence<T *> *value, Bag bag)) : rule(rule) {
 
-    Node(bool (*rule)(ArraySequence<T> value, Bag bag)) : rule(rule) {};
+    };
 
-    void AddToNode(ArraySequence<T> *elements, Bag *bag) {
+    void Add(ArraySequence<T *> *elements, Bag *bag) {
         for (int i = 0; i < elements->GetLength(); i++) {
             auto node = new Node<T>(rule);
             node->value = value;
             node->value.Append(elements->Get(i));
-            if (rule((node->value), *bag)) {
+            if (rule(&(node->value), *bag)) {
                 children.Append(node);
             } else
                 delete node;
         }
-    };
-
-    void Add(ArraySequence<T> *elements, Bag *bag) {
-        if (!children.GetLength()) {
-            for (int i = 0; i < elements->GetLength(); i++) {
-                auto node = new Node<T>(rule);
-                node->value = value;
-                node->value.Append(elements->Get(i));
-                if (rule((node->value), *bag)) {
-                    children.Append(node);
-                } else
-                    delete node;
-            }
-        }
         for (int i = 0; i < children.GetLength(); i++) {
-            children.Get(i)->AddToNode(elements, bag);
             children.Get(i)->Add(elements, bag);
         }
+
     };
+
 
     void print(int n = 0) {
 
         for (int k = 0; k < n; k++)
             cout << "      ";
+
         cout << value << " \n";
 
         for (int i = 0; i < children.GetLength(); i++) {
@@ -76,9 +61,9 @@ public:
         return cout << ntree.value;
     };
 
-    void GetArray(ArraySequence<ArraySequence<T>> *array) {
+    void GetArray(ArraySequence<ArraySequence<T *> *> *array) {
         if (children.GetLength() == 0) {
-            array->Append(value);
+            array->Append(&value);
             return;
         }
         for (int i = 0; i < children.GetLength(); i++)
@@ -92,16 +77,16 @@ class NTree {
 private:
     Node<T> *root;
 public:
-    NTree(bool (*rule)(ArraySequence<T> value, Bag bag)) {
+    NTree(bool (*rule)(ArraySequence<T *> *value, Bag bag)) {
         root = new Node<T>(rule);
     }
 
-    void Add(ArraySequence<T> *elements, Bag *bag) {
+    void Add(ArraySequence<T *> *elements, Bag *bag) {
         root->Add(elements, bag);
     };
 
-    ArraySequence<ArraySequence<T>> Get() {
-        ArraySequence<ArraySequence<T>> array;
+    ArraySequence<ArraySequence<T *> *> Get() {
+        ArraySequence<ArraySequence<T *> *> array;
         root->GetArray(&array);
         return array;
     }
@@ -117,15 +102,17 @@ public:
     };
 };
 
-bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object>> pair1, Pair_for_dict<int, ArraySequence<object>> pair2) {
+
+bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object *> *> pair1,
+                     Pair_for_dict<int, ArraySequence<object *> *> pair2) {
     return pair1.key > pair2.key;
 }
 
 
 template<class T>
-Dictionary<int, ArraySequence<T>> Decision(NTree<T> ntree) {
-    Dictionary<int, ArraySequence<T>> decision(cmpObjectsArray);
-    ArraySequence<ArraySequence<T>> array = ntree.Get();
+Dictionary<int, ArraySequence<T *> *> Decision(NTree<T> ntree) {
+    Dictionary<int, ArraySequence<T *> *> decision(cmpObjectsArray);
+    ArraySequence<ArraySequence<T *> *> array = ntree.Get();
     for (int i = 0; i < array.GetLength(); i++) {
         decision.Add(GetSumPrice(array.Get(i)), array.Get(i));
     }

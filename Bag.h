@@ -29,6 +29,12 @@ public:
         return out << "{ weight: " << object1.GetWeight() << ",volume: " << object1.GetVolume() << ",price: "
                    << object1.GetPrice() << "}";
     }
+
+    friend
+    std::ostream &operator<<(std::ostream &out, object *object1) {
+        return out << "{ weight: " << object1->GetWeight() << ",volume: " << object1->GetVolume() << ",price: "
+                   << object1->GetPrice() << "}";
+    }
 };
 
 
@@ -43,21 +49,21 @@ public:
 };
 
 
-bool rule_for_bag(ArraySequence<object> value, Bag bag) {
+bool rule_for_bag(ArraySequence<object *> *value, Bag bag) {
     int s_weight = 0, s_volume = 0;
-    for (int i = 0; i < value.GetLength(); i++) {
-        s_weight += value[i].GetWeight();
-        s_volume += value[i].GetVolume();
+    for (int i = 0; i < value->GetLength(); i++) {
+        s_weight += value->Get(i)->GetWeight();
+        s_volume += value->Get(i)->GetVolume();
         if (s_weight > bag.max_weight && s_volume > bag.max_volume) return false;
     }
     return true;
 };
 
 
-int GetSumPrice(ArraySequence<object> array_of_objects) {
+int GetSumPrice(ArraySequence<object *> *array_of_objects) {
     int price = 0;
-    for (int i = 0; i < array_of_objects.GetLength(); i++) {
-        price += array_of_objects.Get(i).GetPrice();
+    for (int i = 0; i < array_of_objects->GetLength(); i++) {
+        price += array_of_objects->Get(i)->GetPrice();
     }
     return price;
 }

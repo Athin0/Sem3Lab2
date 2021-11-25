@@ -7,7 +7,7 @@
 #include "Comparators.h"
 #include "N-tree.h"
 #include "Bag.h"
-#include "meny.h"
+#include "menuBag.h"
 
 int GetIntFromPerson(Person men) {
     return men.GetBirthYear();
