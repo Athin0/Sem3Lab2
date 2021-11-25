@@ -11,5 +11,7 @@ CMakeFiles/Sem3Lab2.dir/main.cpp.o: \
  ../N-tree.h \
  ../Person.h \
  ../Tree.h \
+ ../functions.h \
  ../main.cpp \
+ ../menuBag.h \
  ../menuHistogram.h

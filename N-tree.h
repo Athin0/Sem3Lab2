@@ -21,7 +21,6 @@ private:
 public:
 
     Node(bool (*rule)(ArraySequence<T *> *value, Bag bag)) : rule(rule) {
-
     };
 
     void Add(ArraySequence<T *> *elements, Bag *bag) {
@@ -53,13 +52,6 @@ public:
         }
     };
 
-    friend std::ostream &operator<<(std::ostream &out, Node<T> *ntree) {
-        return cout << ntree->value;
-    };
-
-    friend std::ostream &operator<<(std::ostream &out, Node<T> ntree) {
-        return cout << ntree.value;
-    };
 
     void GetArray(ArraySequence<ArraySequence<T *> *> *array) {
         if (children.GetLength() == 0) {
@@ -69,6 +61,16 @@ public:
         for (int i = 0; i < children.GetLength(); i++)
             children.Get(i)->GetArray(array);
     }
+};
+
+template<class T>
+std::ostream &operator<<(std::ostream &out, Node<T> *ntree) {
+    return cout << ntree->value;
+};
+
+template<class T>
+std::ostream &operator<<(std::ostream &out, Node<T> ntree) {
+    return cout << ntree.value;
 };
 
 
@@ -91,15 +93,6 @@ public:
         return array;
     }
 
-    friend std::ostream &operator<<(std::ostream &out, NTree<T> ntree) {
-        ntree.root->print();
-        return out;
-    };
-
-    friend std::ostream &operator<<(std::ostream &out, NTree<T> *ntree) {
-        ntree->root->print();
-        return out;
-    };
 };
 
 
@@ -108,6 +101,18 @@ bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object *> *> pair1,
     return pair1.key > pair2.key;
 }
 
+
+template<class T>
+std::ostream &operator<<(std::ostream &out, NTree<T> ntree) {
+    ntree.root->print();
+    return out;
+};
+
+template<class T>
+std::ostream &operator<<(std::ostream &out, NTree<T> *ntree) {
+    ntree->root->print();
+    return out;
+};
 
 template<class T>
 Dictionary<int, ArraySequence<T *> *> Decision(NTree<T> ntree) {

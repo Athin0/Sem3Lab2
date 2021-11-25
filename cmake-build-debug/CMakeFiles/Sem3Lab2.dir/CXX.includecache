@@ -50,6 +50,8 @@ iostream
 ArraySequence.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
 
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/functions.h
+
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/main.cpp
 iostream
 -
@@ -69,8 +71,18 @@ N-tree.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/N-tree.h
 Bag.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Bag.h
+menuBag.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/menuBag.h
 menuHistogram.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/menuHistogram.h
+
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/menuBag.h
+ArraySequence.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
+Bag.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Bag.h
+functions.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/functions.h
 
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/menuHistogram.h
 Person.h
@@ -79,4 +91,6 @@ Histogram.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/Histogram.h
 ArraySequence.h
 /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/ArraySequence.h
+functions.h
+/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/functions.h
 

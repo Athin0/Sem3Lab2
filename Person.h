@@ -21,9 +21,9 @@ public:
 
     Person(string First, int Year) : FirstName(First), BirthYear(Year) {};
 
-    Person() {};
+    Person() = default;;
 
-    ~Person() {};
+    ~Person() = default;;
 
     string GetFirstName() {
         return FirstName;
@@ -94,20 +94,20 @@ string to_string(Person &person) {
     return person.GetFullName();
 }
 
-
-std::ostream &operator>>(std::ostream &in, Person person) {
-    string name;
-    int year;
-    cout << "Enter name: ";
-    cin >> name;
-    cout << endl;
-    cout << "Enter Birthday year: ";
-    cin >> year;
-    cout << endl;
-    person.SetFirstName(name);
-    person.SetBirthYear(year);
-    return in;
-}
+//
+//std::ostream &operator>>(std::ostream &in, Person person) {
+//    string name;
+//    int year;
+//    cout << "Enter name: ";
+//    cin >> name;
+//    cout << endl;
+//    cout << "Enter Birthday year: ";
+//    cin >> year;
+//    cout << endl;
+//    person.SetFirstName(name);
+//    person.SetBirthYear(year);
+//    return in;
+//}
 
 
 Person createPerson() {

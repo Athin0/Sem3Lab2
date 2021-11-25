@@ -7,26 +7,29 @@
 #include "Comparators.h"
 #include "N-tree.h"
 #include "Bag.h"
-//#include "menuBag.h"
+#include "menuBag.h"
 
 #include "menuHistogram.h"
 
 
-bool rule(ArraySequence<Person> value) {
-    if (value.GetLength() <= 1) return true;
-    for (int i = 0; i < value.GetLength(); i++) {
-        for (int j = i + 1; j < value.GetLength(); j++)
-            if ((value.Get(i).GetBirthYear() != value.Get(j).GetBirthYear()) || (value.Get(i) == value.Get(j)))
-                return false;
-    }
-    return true;
-};
-
 int main() {
     menuHistogram();
-
+    //menuBag();
     return 0;
 }
+
+
+
+//bool rule(ArraySequence<Person> value) {
+//    if (value.GetLength() <= 1) return true;
+//    for (int i = 0; i < value.GetLength(); i++) {
+//        for (int j = i + 1; j < value.GetLength(); j++)
+//            if ((value.Get(i).GetBirthYear() != value.Get(j).GetBirthYear()) || (value.Get(i) == value.Get(j)))
+//                return false;
+//    }
+//    return true;
+//};
+
 
 /*
  * int arr1[] = {1, 2, 3, 4, 7};

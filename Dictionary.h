@@ -31,12 +31,13 @@ struct Pair_for_dict {
         return element;
     }
 
-    friend std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
-        return cout << pair.key << "-" << pair.element;
-    };
 
 };
 
+template<class TKey, class TElem>
+std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
+    return cout << pair.key << "-" << pair.element;
+};
 
 
 template<class TKey, class TElem>
