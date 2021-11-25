@@ -12,4 +12,4 @@ CMakeFiles/Sem3Lab2.dir/main.cpp.o: \
  ../Person.h \
  ../Tree.h \
  ../main.cpp \
- ../menuBag.h
+ ../menuHistogram.h

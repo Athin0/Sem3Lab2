@@ -7,14 +7,12 @@
 #include "Comparators.h"
 #include "N-tree.h"
 #include "Bag.h"
-#include "menuBag.h"
+//#include "menuBag.h"
 
-int GetIntFromPerson(Person men) {
-    return men.GetBirthYear();
-}
+#include "menuHistogram.h"
+
 
 bool rule(ArraySequence<Person> value) {
-    // if (value.GetLength() > 3) return false;
     if (value.GetLength() <= 1) return true;
     for (int i = 0; i < value.GetLength(); i++) {
         for (int j = i + 1; j < value.GetLength(); j++)
@@ -25,7 +23,7 @@ bool rule(ArraySequence<Person> value) {
 };
 
 int main() {
-    meny();
+    menuHistogram();
 
     return 0;
 }
@@ -47,9 +45,11 @@ int main() {
         personsArr.Append(man);
     }
 
-    Dictionary<int, Person> dictionary(arr1, name, 3, cmp);
-    int time[] = {2000, 2005, 2017, 2090};
+     int time[] = {2000, 2005, 2017, 2090};
     ArraySequence<int> timeArr(time, 4);
+
+    Dictionary<int, Person> dictionary(arr1, name, 3, cmp);
+
     Histogram<Person> *a = new Histogram<Person>(GetIntFromPerson, cmp);
     for (int i = 0; i < personsArr.GetLength(); i++)
         a->Add(personsArr[i]);

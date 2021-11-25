@@ -62,6 +62,11 @@ public:
         this->cmp = cmp;
     }
 
+    //Dictionary(ArraySequence<TKey> array, bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
+    //    this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
+    //    this->cmp = cmp;
+    //}
+
     Dictionary(TKey *key, TElem *element, int num,
                bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
         this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
@@ -118,6 +123,15 @@ public:
 
     ArraySequence<Pair_for_dict<TKey, TElem>> Get() {
         return tree->GetKeyArray();
+    }
+
+    TKey FindMin() {
+
+        return tree->FindMinInTree().key;
+    }
+
+    TKey FindMax() {
+        return tree->FindMaxInTree().key;
     }
 };
 

@@ -143,7 +143,7 @@ private:
             return nullptr;
         else if (cmp(node->key, x)) {
             node->left = Remove(node->left, x);
-        } else if (!(cmp(node->key, x))) {
+        } else if ((cmp(x, node->key))) {
             node->right = Remove(node->right, x);
         } else if (node->left && node->right) {
             temp = FindMin(node->right);
@@ -203,7 +203,7 @@ private:
             return nullptr;
         } else if (cmp(node->key, data))
             return FindNode(node->left, data);
-        else if (!(cmp(node->key, data)))
+        else if ((cmp(data, node->key)))
             return FindNode(node->right, data);
         else
             return node;
@@ -319,10 +319,10 @@ public:
 
     void Remove(T item) {
         root = Remove(root, item);
-        ArraySequence<T> arr = GetKeyArray();
-        auto *res = new BinaryTree<T>(arr, cmp);
-        DeleteNode(root);
-        root = res->root;
+        //ArraySequence<T> arr = GetKeyArray();
+        //auto *res = new BinaryTree<T>(arr, cmp);
+        //DeleteNode(root);
+        //root = res->root;
     }
 
     std::string GetStrGreatTree() const {
@@ -334,6 +334,7 @@ public:
     bool Find(T item) {
         return FindNode(root, item);
     }
+
 
     T GetNode(T data) {
         return FindNode(root, data)->key;
@@ -408,6 +409,14 @@ public:
         root = nullptr;
         InsertNode(binaryTree.root);
         return *this;
+    }
+
+    T FindMinInTree() {
+        return FindMin(root)->key;
+    }
+
+    T FindMaxInTree() {
+        return FindMax(root)->key;
     }
 
 };

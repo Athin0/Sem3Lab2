@@ -49,10 +49,25 @@ public:
         return BirthYear;
     };
 
-    int GetAge(int year) {
+    int Getyear(int year) {
         return (year - BirthYear);
     }
 
+    void SetFirstName(string name) {
+        this->FirstName = name;
+    }
+
+    void SetMiddleName(string name) {
+        this->MiddleName = name;
+    }
+
+    void SetLastName(string name) {
+        this->LastName = name;
+    }
+
+    void SetBirthYear(int year) {
+        this->BirthYear = year;
+    }
 
     bool operator==(const Person another) {
         if (FirstName != another.FirstName) return false;
@@ -82,30 +97,34 @@ string to_string(Person &person) {
 
 std::ostream &operator>>(std::ostream &in, Person person) {
     string name;
-    int age;
+    int year;
     cout << "Enter name: ";
     cin >> name;
     cout << endl;
-    cout << "Enter age: ";
-    cin >> age;
+    cout << "Enter Birthday year: ";
+    cin >> year;
     cout << endl;
-
+    person.SetFirstName(name);
+    person.SetBirthYear(year);
     return in;
 }
 
 
-Person create() {
+Person createPerson() {
     string name;
-    int age;
+    int year;
     cout << "Enter name: ";
     cin >> name;
-    cout << endl;
-    cout << "Enter age: ";
-    cin >> age;
-    cout << endl;
-    return *(new Person(name, age));
-
+    cout << "Enter Birthday year: ";
+    cin >> year;
+    return *(new Person(name, year));
 }
+
+
+int GetIntFromPerson(Person men) {
+    return men.GetBirthYear();
+}
+
 
 #endif //SEM3LAB2_PERSON_H
 
