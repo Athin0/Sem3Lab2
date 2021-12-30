@@ -9,10 +9,10 @@ int main() {
     //menuHistogram();
     //menuBag();
     FibHeap<int> a(cmp);
-    for (int i = 0; i < 30; i++) {
-        a.add(i * 31 + 2);
+    for (int i = 0; i < 20; i++) {
+        a.Add(i * 31 + 2);
     }
-    a.extractMin();
+    a.ExtractMin();
     printFibQueue(&a);
     a.Deletion(64);
     printFibQueue(&a);

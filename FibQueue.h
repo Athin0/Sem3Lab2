@@ -54,6 +54,7 @@ struct node {
 //bool cmp(node<T> *a, node<T> *b) {
 //    return dist[a->key] < dist[b->key];
 //}
+
 template<class T>
 bool cmp(node<T> *a, node<T> *b) {
     return a->key < b->key;
@@ -61,16 +62,24 @@ bool cmp(node<T> *a, node<T> *b) {
 
 
 template<class T>
-struct FibHeap {
+class FibHeap {
     node<T> *min;
     int rootsAmount;
     int NumberOFNodes;
 
     bool (*less)(node<T> *a, node<T> *b);
-    //cmpPtr<T> less;
 
-    FibHeap(/*cmpPtr<T> cmp*/bool (*less)(node<T> *a, node<T> *b)) : min(nullptr), rootsAmount(0), less(cmp),
-                                                                     NumberOFNodes(0) {}
+    //cmpPtr<T> less;
+    struct Empty {
+        string str;
+
+        Empty(string str = "") : str(str) {}
+    };
+
+
+public:
+    FibHeap(bool (*less)(node<T> *a, node<T> *b)) : min(nullptr), rootsAmount(0), less(cmp),
+                                                    NumberOFNodes(0) {}
 
     ~FibHeap() {
         if (!min) return;
@@ -78,31 +87,26 @@ struct FibHeap {
         delete min;
     }
 
-    struct Empty {
-        string str;
-
-        Empty(string str = "") : str(str) {}
-    };
-
-    node<T> *add(T key) {
+    node<T> *Add(T key) {
         node<T> *Node = new node<T>(key);
         add(Node, &min);
         NumberOFNodes++;
+        //consolidate();
         return Node;
     }
 
-    T get_min() {
+    T GetMin() {
         return min->key;
     }
 
-    void union_fib_heap(FibHeap &fb) {
+    void UnionFibHeap(FibHeap &fb) {
         unionRoot(fb.min, fb.rootsAmount);
         if (!min || (fb.min && less(fb.min, min)))
             min = fb.min;
         fb.clear();
     }
 
-    T extractMin() {
+    T ExtractMin() {
         node<T> *res = min;
         if (res) {
             childsToRoot(res);
@@ -116,17 +120,47 @@ struct FibHeap {
         }
         T ans = res ? res->key : ERROR;
         delete res;
-        NumberOFNodes--;
         return ans;
     }
+// Функция для поиска данного узла  и изменения его значения
 
-    void decKey(node<T> *Node) {    //понижение степени
-        node<T> *par = Node->parent;
-        if (par && less(Node, par)) {
-            removeChild(Node);
-            cascadingCut(par);
-        } else if (less(Node, min))
-            min = Node;
+    node<T> *Find(node<T> *vert, T old_val, T val) {
+        node<T> *found = nullptr;
+        node<T> *temp = vert;
+        temp->mark = true;
+        node<T> *found_ptr = nullptr;
+        if (temp->key == old_val) {
+            found_ptr = temp;
+            temp->mark = false;
+            found = found_ptr;
+            decreaseKey(found, val);
+        }
+        if (found_ptr == nullptr) {
+            if (temp->child != nullptr)
+                Find(temp->child, old_val, val);
+            if ((temp->right)->mark != true)
+                Find(temp->right, old_val, val);
+        }
+        temp->mark = false;
+        found = found_ptr;
+        return found;
+    }
+
+// Удаление узла из кучи
+    void Deletion(T val) {
+        if (min == nullptr)
+            throw Empty("The heap is empty");
+        else {
+            // Уменьшаем значение узла до минимума
+            Find(min, val, MIN_POOSIBLE_VALUE);
+            // Вызов функции Extract_min для
+            // удаляем минимальное значение узла, равное 0
+            ExtractMin();
+        }
+    }
+
+    node<T> *GetPtrMin() {
+        return min;
     }
 
 private:
@@ -213,7 +247,7 @@ private:
         rootsAmount--;
     }
 
-    void InsertRootAsChildOfOtherRoot(node<T> *newChild, node<T> *par) {
+    void insertRootAsChildOtherRoot(node<T> *newChild, node<T> *par) {
         removeRoot(newChild);
         add(newChild, &par->child, par);
         newChild->mark = false;
@@ -233,7 +267,7 @@ private:
                 node<T> *y = A[d];
                 if (less(y, x))
                     swap(x, y);           // корень x <y  дальше работаем c x
-                InsertRootAsChildOfOtherRoot(y, x);   //вставляем y в x
+                insertRootAsChildOtherRoot(y, x);   //вставляем y в x
                 A[d++] = nullptr;
             }
             A[d] = x;
@@ -257,7 +291,6 @@ private:
 
 
 // Функция для уменьшения значения узла в куче
-
     void decreaseKey(node<T> *found, int val) {
         if (min == nullptr)
             throw Empty("min");
@@ -270,8 +303,8 @@ private:
         node<T> *temp = found->parent;
 
         if (temp != nullptr && found->key < temp->key) {
-            removeChild(found);
-            cascadingCut(temp);
+            removeChild(found);    //выкидывает found в корни
+            cascadingCut(temp);    //помечаем вершину из которой удалили
         }
 
         if (found->key < min->key)
@@ -279,46 +312,6 @@ private:
 
     }
 
-
-// Функция для поиска данного узла
-
-    void Find(node<T> *vert, T old_val, T val) {
-        node<T> *found = nullptr;
-        node<T> *temp = vert;
-        temp->mark = true;
-        node<T> *found_ptr = nullptr;
-        if (temp->key == old_val) {
-            found_ptr = temp;
-            temp->mark = false;
-            found = found_ptr;
-            decreaseKey(found, val);
-        }
-        if (found_ptr == nullptr) {
-            if (temp->child != nullptr)
-                Find(temp->child, old_val, val);
-            if ((temp->right)->mark != true)
-                Find(temp->right, old_val, val);
-        }
-        temp->mark = false;
-        found = found_ptr;
-    }
-
-
-// Удаление узла из кучи
-public:
-    void Deletion(T val) {
-        if (min == nullptr)
-            throw Empty("The heap is empty");
-        else {
-            // Уменьшаем значение узла до минимума
-            Find(min, val, MIN_POOSIBLE_VALUE);
-            // Вызов функции Extract_min для
-            // удаляем минимальное значение узла, равное 0
-            extractMin();
-
-        }
-
-    }
 };
 
 
@@ -345,10 +338,9 @@ void printArrayNode(node<T> *child) {
     } while (ptr != child && ptr->right != nullptr);
 }
 
-
 template<class T>
 void printFibQueue(FibHeap<T> *fq) {
-    node<T> *ptr = fq->min;
+    node<T> *ptr = fq->GetPtrMin();
     if (ptr == nullptr)
         cout << "The Heap is Empty" << endl;
     else {
@@ -356,17 +348,17 @@ void printFibQueue(FibHeap<T> *fq) {
         do {
             cout << ptr->key;
             ptr = ptr->right;
-            if (ptr != fq->min) {
+            if (ptr != fq->GetPtrMin()) {
                 cout << "-->";
             }
-        } while (ptr != fq->min && ptr->right != nullptr);
+        } while (ptr != fq->GetPtrMin() && ptr->right != nullptr);
         cout << endl;
         //     << "The heap has " << fq->rootsAmount << " nodes" << endl;
     }
     do {
         printArrayNode(ptr->child);
         ptr = ptr->right;
-    } while (ptr != fq->min && ptr->right != nullptr);
+    } while (ptr != fq->GetPtrMin() && ptr->right != nullptr);
 
     cout << endl;
 
