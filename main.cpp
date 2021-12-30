@@ -7,15 +7,15 @@
 
 int main() {
     //menuHistogram();
-    menuBag();
-    //fib_heap<int> a(cmp);
-    //for(int i =0;i<20;i++) {
-    //    a.add(i*31+2);
-    //}
-    //a.extract_min();
-    //printFibQueue(&a);
-    //a.Deletion(64);
-    //printFibQueue(&a);
+    //menuBag();
+    FibHeap<int> a(cmp);
+    for (int i = 0; i < 30; i++) {
+        a.add(i * 31 + 2);
+    }
+    a.extractMin();
+    printFibQueue(&a);
+    a.Deletion(64);
+    printFibQueue(&a);
     return 0;
 }
 

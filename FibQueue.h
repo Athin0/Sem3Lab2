@@ -10,14 +10,14 @@
 
 using namespace std;
 
-const int SIZE = 31;
-const int INF = 1e9;
-const int ERROR = -1;
+//const int SIZE = 31;
+//const int INF = 1e9;
+const int ERROR = -100000;
 #define MIN_POOSIBLE_VALUE -1
 
 
-const int MAX_VERTEXES = 1e4 + 2;
-int dist[MAX_VERTEXES];
+//const int MAX_VERTEXES = 1e4 + 2;
+//int dist[MAX_VERTEXES];
 
 template<class T>
 struct node {
@@ -61,18 +61,18 @@ bool cmp(node<T> *a, node<T> *b) {
 
 
 template<class T>
-struct fib_heap {
+struct FibHeap {
     node<T> *min;
-    int roots_amount;
+    int rootsAmount;
     int NumberOFNodes;
 
     bool (*less)(node<T> *a, node<T> *b);
     //cmpPtr<T> less;
 
-    fib_heap(/*cmpPtr<T> cmp*/bool (*less)(node<T> *a, node<T> *b)) : min(nullptr), roots_amount(0), less(cmp),
-                                                                      NumberOFNodes(0) {}
+    FibHeap(/*cmpPtr<T> cmp*/bool (*less)(node<T> *a, node<T> *b)) : min(nullptr), rootsAmount(0), less(cmp),
+                                                                     NumberOFNodes(0) {}
 
-    ~fib_heap() {
+    ~FibHeap() {
         if (!min) return;
         min->internal_delete(true);
         delete min;
@@ -95,18 +95,18 @@ struct fib_heap {
         return min->key;
     }
 
-    void union_fib_heap(fib_heap &fb) {
-        union_root(fb.min, fb.roots_amount);
+    void union_fib_heap(FibHeap &fb) {
+        unionRoot(fb.min, fb.rootsAmount);
         if (!min || (fb.min && less(fb.min, min)))
             min = fb.min;
         fb.clear();
     }
 
-    T extract_min() {
+    T extractMin() {
         node<T> *res = min;
         if (res) {
-            childs_to_root(res);
-            remove_root(res);
+            childsToRoot(res);
+            removeRoot(res);
             if (res->right == res)
                 min = nullptr;
             else {
@@ -120,50 +120,50 @@ struct fib_heap {
         return ans;
     }
 
-    void dec_key(node<T> *Node) {    //понижение степени
+    void decKey(node<T> *Node) {    //понижение степени
         node<T> *par = Node->parent;
         if (par && less(Node, par)) {
-            remove_child(Node);
-            cascading_cut(par);
+            removeChild(Node);
+            cascadingCut(par);
         } else if (less(Node, min))
             min = Node;
     }
 
 private:
     bool empty() {
-        return !roots_amount;
+        return !rootsAmount;
     }
 
-    void remove_child(node<T> *Node) {
+    void removeChild(node<T> *Node) {
         Node->parent->degree--;
         Node->parent->child = Node->right == Node ? nullptr : Node->right;
-        kill_LR_links(Node);
+        killLRlinks(Node);
         add(Node, &min);
         Node->mark = false;
     }  //перенос в корень ОДНОГО Node
 
-    void cascading_cut(node<T> *cur) {
+    void cascadingCut(node<T> *cur) {
         node<T> *par = cur->parent;
         if (par && par->degree) {
             if (!par->mark)
                 par->mark = true;
             else {
-                remove_child(cur);
-                cascading_cut(par);
+                removeChild(cur);
+                cascadingCut(par);
             }
         }
     }
 
     void clear() {
         min = nullptr;
-        roots_amount = 0;
+        rootsAmount = 0;
     }
 
-    void union_root(node<T> *Node, int nodes_amount) {
+    void unionRoot(node<T> *Node, int nodes_amount) {
         if (Node == nullptr) return;
         if (min == nullptr) {
             min = Node;
-            roots_amount = nodes_amount;
+            rootsAmount = nodes_amount;
         } else {
             node<T> *L = Node->left;
             node<T> *R = min->right;
@@ -171,12 +171,13 @@ private:
             Node->left = min;
             L->right = R;
             R->left = L;
-            roots_amount += nodes_amount;
+            rootsAmount += nodes_amount;
         }
     }
 
-    void kill_LR_links(node<T> *Node) {
+    void killLRlinks(node<T> *Node) {
         if (Node->left != Node) {
+
             Node->right->left = Node->left;
             Node->left->right = Node->right;
         }
@@ -198,7 +199,7 @@ private:
             *bro = Node;
 
         if (*bro == min) {
-            roots_amount++;
+            rootsAmount++;
             Node->parent = nullptr;
         }
         if (par) {
@@ -207,13 +208,13 @@ private:
         }
     }
 
-    void remove_root(node<T> *Node) {
-        kill_LR_links(Node);
-        roots_amount--;
+    void removeRoot(node<T> *Node) {
+        killLRlinks(Node);
+        rootsAmount--;
     }
 
-    void fib_heap_InsertRootAsChildOfOtherRoot(node<T> *newChild, node<T> *par) {
-        remove_root(newChild);
+    void InsertRootAsChildOfOtherRoot(node<T> *newChild, node<T> *par) {
+        removeRoot(newChild);
         add(newChild, &par->child, par);
         newChild->mark = false;
     } //что-то делает
@@ -223,7 +224,7 @@ private:
         for (int i = 0; i < NumberOFNodes; i++)
             A.Append(nullptr);
         node<T> *x = min;
-        int init_roots = roots_amount;
+        int init_roots = rootsAmount;
         int max_degree = 0;
         for (int i = 0; i < init_roots; ++i) {
             int d = x->degree;
@@ -232,7 +233,7 @@ private:
                 node<T> *y = A[d];
                 if (less(y, x))
                     swap(x, y);           // корень x <y  дальше работаем c x
-                fib_heap_InsertRootAsChildOfOtherRoot(y, x);   //вставляем y в x
+                InsertRootAsChildOfOtherRoot(y, x);   //вставляем y в x
                 A[d++] = nullptr;
             }
             A[d] = x;
@@ -240,7 +241,7 @@ private:
             x = next;
         }
         min = nullptr;
-        roots_amount = 0;
+        rootsAmount = 0;
         for (int i = 0; i <= max_degree; ++i) {
             if (A[i]) {
                 add(A[i], &min);
@@ -248,16 +249,16 @@ private:
         }
     }
 
-    void childs_to_root(node<T> *Node) {
+    void childsToRoot(node<T> *Node) {
         while (Node->child)
-            remove_child(Node->child);
+            removeChild(Node->child);
     }
 
 
 
 // Функция для уменьшения значения узла в куче
 
-    void Decrease_key(node<T> *found, int val) {
+    void decreaseKey(node<T> *found, int val) {
         if (min == nullptr)
             throw Empty("min");
         if (found == nullptr)
@@ -269,8 +270,8 @@ private:
         node<T> *temp = found->parent;
 
         if (temp != nullptr && found->key < temp->key) {
-            remove_child(found);
-            cascading_cut(temp);
+            removeChild(found);
+            cascadingCut(temp);
         }
 
         if (found->key < min->key)
@@ -290,7 +291,7 @@ private:
             found_ptr = temp;
             temp->mark = false;
             found = found_ptr;
-            Decrease_key(found, val);
+            decreaseKey(found, val);
         }
         if (found_ptr == nullptr) {
             if (temp->child != nullptr)
@@ -313,7 +314,7 @@ public:
             Find(min, val, MIN_POOSIBLE_VALUE);
             // Вызов функции Extract_min для
             // удаляем минимальное значение узла, равное 0
-            extract_min();
+            extractMin();
 
         }
 
@@ -346,7 +347,7 @@ void printArrayNode(node<T> *child) {
 
 
 template<class T>
-void printFibQueue(fib_heap<T> *fq) {
+void printFibQueue(FibHeap<T> *fq) {
     node<T> *ptr = fq->min;
     if (ptr == nullptr)
         cout << "The Heap is Empty" << endl;
@@ -360,7 +361,7 @@ void printFibQueue(fib_heap<T> *fq) {
             }
         } while (ptr != fq->min && ptr->right != nullptr);
         cout << endl;
-        //     << "The heap has " << fq->roots_amount << " nodes" << endl;
+        //     << "The heap has " << fq->rootsAmount << " nodes" << endl;
     }
     do {
         printArrayNode(ptr->child);
