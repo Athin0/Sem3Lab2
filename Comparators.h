@@ -6,12 +6,13 @@
 #define SEM3LAB2_COMPARATORS_H
 
 #include "Histogram.h"
+#include "Person.h"
 
-bool cmp(Pair_for_dict<int, int> pair1, Pair_for_dict<int, int> pair2) {
+bool cmp(KeyValuePair<int, int> pair1, KeyValuePair<int, int> pair2) {
     return pair1.key > pair2.key;
 }
 
-bool cmp(Pair_for_dict<int, Person> pair1, Pair_for_dict<int, Person> pair2) {
+bool cmp(KeyValuePair<int, Person> pair1, KeyValuePair<int, Person> pair2) {
     return pair1.key > pair2.key;
 }
 

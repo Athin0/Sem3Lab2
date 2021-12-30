@@ -23,7 +23,7 @@ public:
     Node(bool (*rule)(ArraySequence<T *> *value, Bag bag)) : rule(rule) {
     };
 
-    void Add(ArraySequence<T *> *elements, Bag *bag) {
+    void Add(ArraySequence<T *> *elements, Bag *bag) {          //переделать в очередь через Фибоначи
         for (int i = 0; i < elements->GetLength(); i++) {
             auto node = new Node<T>(rule);
             node->value = value;
@@ -96,8 +96,8 @@ public:
 };
 
 
-bool cmpObjectsArray(Pair_for_dict<int, ArraySequence<object *> *> pair1,
-                     Pair_for_dict<int, ArraySequence<object *> *> pair2) {
+bool cmpObjectsArray(KeyValuePair<int, ArraySequence<object *> *> pair1,
+                     KeyValuePair<int, ArraySequence<object *> *> pair2) {
     return pair1.key > pair2.key;
 }
 
@@ -113,6 +113,7 @@ std::ostream &operator<<(std::ostream &out, NTree<T> *ntree) {
     ntree->root->print();
     return out;
 };
+
 
 template<class T>
 Dictionary<int, ArraySequence<T *> *> Decision(NTree<T> ntree) {

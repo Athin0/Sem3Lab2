@@ -1,4 +1,4 @@
-# Install script for directory: /cygdrive/c/Users/arina/CLionProjects/Sem3Lab2
+# Install script for directory: /cygdrive/c/Users/arina/mommy/Projects/Gist/Sem3Lab4
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/cygdrive/c/Users/arina/mommy/Projects/Gist/Sem3Lab4/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

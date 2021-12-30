@@ -4,11 +4,7 @@
 
 #ifndef SEM3LAB2_DYNAMICARRAY_H
 #define SEM3LAB2_DYNAMICARRAY_H
-
 #include <iostream>
-
-using namespace std;
-
 
 template<class T>
 void arrCopy(T *out_arr, T *inp_arr, int count) {
@@ -132,7 +128,7 @@ void DynamicArray<T>::Set(int index, T value) {               //Задать э�
 
 
 template<class T>
-void DynamicArray<T>::Resize(int newSize) {   //TODO переделай
+void DynamicArray<T>::Resize(int newSize) {   // переделай
     if (newSize < 0)
         throw IndexOutOfRange(); //исключение выхода за массив
     if (size == newSize) return;               //длина не изменилась
@@ -186,5 +182,4 @@ std::ostream &operator<<(std::ostream &cout, DynamicArray<T> *dynamicArray) {
     }
     return cout << ']';
 }
-
 #endif //SEM3LAB2_DYNAMICARRAY_H

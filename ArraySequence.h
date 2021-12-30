@@ -7,7 +7,8 @@
 
 #include "DynamicArray.h"
 
-int MAX_INT = 1000;
+int MAX_INT = 3000;//INT32_MAX;
+using std::cout;
 
 int randomInt() {
     return rand() % MAX_INT;

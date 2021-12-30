@@ -7,6 +7,7 @@
 
 #include "Dictionary.h"
 
+//вывод гистограммы
 
 template<class T>
 class Histogram {
@@ -15,18 +16,18 @@ private:
 
     int (*Get_int_value)(T);
 
-    bool (*cmp)(Pair_for_dict<int, int>, Pair_for_dict<int, int>);
+    bool (*cmp)(KeyValuePair<int, int>, KeyValuePair<int, int>);
 
 public:
     Histogram(int (*Get_int_value)(T),
-              bool (*cmp)(Pair_for_dict<int, int>, Pair_for_dict<int, int>)) {
+              bool (*cmp)(KeyValuePair<int, int>, KeyValuePair<int, int>)) {
         dict = new Dictionary<int, int>(cmp);
         this->cmp = cmp;
         this->Get_int_value = Get_int_value;
     }
 
     Histogram(ArraySequence<T> array, int (*Get_int_value)(T),
-              bool (*cmp)(Pair_for_dict<int, int>, Pair_for_dict<int, int>)) {
+              bool (*cmp)(KeyValuePair<int, int>, KeyValuePair<int, int>)) {
         dict = new Dictionary<int, int>(cmp);
         this->cmp = cmp;
         this->Get_int_value = Get_int_value;
@@ -42,7 +43,8 @@ public:
         if (dict->ContainsKey(int_value)) {
             int count = dict->Get(int_value);
             dict->Remove(int_value);
-            count++;
+            count++;                      //Set
+            //dict->Get(int_value);
             dict->Add(int_value, count);
         } else {
             dict->Add(int_value, 1);
@@ -132,6 +134,10 @@ public:
 
     void print() {
         dict->print();
+    }
+
+    Dictionary<int, int> GetDictionary() {
+        return *this->dict;
     }
 };
 

@@ -1,22 +1,24 @@
+
 #include <iostream>
-#include "ArraySequence.h"
-#include "Person.h"
-#include "Tree.h"
-#include "Dictionary.h"
-#include "Histogram.h"
-#include "Comparators.h"
-#include "N-tree.h"
-#include "Bag.h"
 #include "menuBag.h"
 
 #include "menuHistogram.h"
-
+#include "FibQueue.h"
 
 int main() {
-    menuHistogram();
-    //menuBag();
+    //menuHistogram();
+    menuBag();
+    //fib_heap<int> a(cmp);
+    //for(int i =0;i<20;i++) {
+    //    a.add(i*31+2);
+    //}
+    //a.extract_min();
+    //printFibQueue(&a);
+    //a.Deletion(64);
+    //printFibQueue(&a);
     return 0;
 }
+
 
 
 

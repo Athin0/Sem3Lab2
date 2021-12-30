@@ -9,19 +9,19 @@
 
 
 template<class TKey, class TElem>
-struct Pair_for_dict {
-    Pair_for_dict() = default;
+struct KeyValuePair {       //KeyValuePair
+    KeyValuePair() = default;
 
     TKey key;
     TElem element;
 
-    string to_string(Pair_for_dict &pair) {
+    std::string to_string(KeyValuePair &pair) {
         return (pair.key + " - " + pair.element);
     }
 
-    Pair_for_dict(TKey key, TElem element) : key(key), element(element) {};
+    KeyValuePair(TKey key, TElem element) : key(key), element(element) {};
 
-    explicit Pair_for_dict(TKey key) : key(key) {};
+    explicit KeyValuePair(TKey key) : key(key) {};
 
     TKey GetKey() {
         return key;
@@ -35,7 +35,7 @@ struct Pair_for_dict {
 };
 
 template<class TKey, class TElem>
-std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
+std::ostream &operator<<(std::ostream &out, KeyValuePair<TKey, TElem> pair) {
     return cout << pair.key << "-" << pair.element;
 };
 
@@ -43,34 +43,34 @@ std::ostream &operator<<(std::ostream &out, Pair_for_dict<TKey, TElem> pair) {
 template<class TKey, class TElem>
 class Dictionary {
 private:
-    BinaryTree<Pair_for_dict<TKey, TElem>> *tree;
+    BinaryTree<KeyValuePair<TKey, TElem>> *tree;
 
-    bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>);
+    bool (*cmp)(KeyValuePair<TKey, TElem>, KeyValuePair<TKey, TElem>);
 
 public:
     Dictionary() {
     }
 
-    Dictionary(TKey key, TElem element, bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
-        Pair_for_dict<TKey, TElem> initial(key, element);
-        this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(initial, cmp);
+    Dictionary(TKey key, TElem element, bool (*cmp)(KeyValuePair<TKey, TElem>, KeyValuePair<TKey, TElem>)) {
+        KeyValuePair<TKey, TElem> initial(key, element);
+        this->tree = new BinaryTree<KeyValuePair<TKey, TElem>>(initial, cmp);
         this->cmp = cmp;
     }
 
 
-    explicit Dictionary(bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
-        this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
+    explicit Dictionary(bool (*cmp)(KeyValuePair<TKey, TElem>, KeyValuePair<TKey, TElem>)) {
+        this->tree = new BinaryTree<KeyValuePair<TKey, TElem>>(cmp);
         this->cmp = cmp;
     }
 
-    //Dictionary(ArraySequence<TKey> array, bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
-    //    this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
+    //Dictionary(ArraySequence<TKey> array, bool (*cmp)(KeyValuePair<TKey, TElem>, KeyValuePair<TKey, TElem>)) {
+    //    this->tree = new BinaryTree<KeyValuePair<TKey, TElem>>(cmp);
     //    this->cmp = cmp;
     //}
 
     Dictionary(TKey *key, TElem *element, int num,
-               bool (*cmp)(Pair_for_dict<TKey, TElem>, Pair_for_dict<TKey, TElem>)) {
-        this->tree = new BinaryTree<Pair_for_dict<TKey, TElem>>(cmp);
+               bool (*cmp)(KeyValuePair<TKey, TElem>, KeyValuePair<TKey, TElem>)) {
+        this->tree = new BinaryTree<KeyValuePair<TKey, TElem>>(cmp);
         this->cmp = cmp;
         for (int i = 0; i < num; i++) {
             this->Add(key[i], element[i]);
@@ -87,30 +87,31 @@ public:
     }
 
     TElem Get(TKey input_key) {
-        Pair_for_dict<TKey, TElem> pair_for_search;
+        KeyValuePair<TKey, TElem> pair_for_search;
         pair_for_search.key = input_key;
         if (tree->Find(pair_for_search))
             return (tree->GetNode(pair_for_search)).GetElem();
+        return TElem();
     }
 
     bool ContainsKey(TKey input_key) {
-        Pair_for_dict<TKey, TElem> pair_for_search;
+        KeyValuePair<TKey, TElem> pair_for_search;
         pair_for_search.key = input_key;
         return tree->Find(pair_for_search);
     }
 
     void Add(TKey input_key, TElem input_element) {
-        Pair_for_dict<TKey, TElem> for_add_pair(input_key, input_element);
+        KeyValuePair<TKey, TElem> for_add_pair(input_key, input_element);
         tree->Insert(for_add_pair);
     }
 
 
-    void Add(Pair_for_dict<TKey, TElem> for_add_pair) {
+    void Add(KeyValuePair<TKey, TElem> for_add_pair) {
         tree->Insert(for_add_pair);
     }
 
     void Remove(TKey input_key) {
-        Pair_for_dict<TKey, TElem> for_remove_pair;
+        KeyValuePair<TKey, TElem> for_remove_pair;
         for_remove_pair.key = input_key;
         tree->Remove(for_remove_pair);
     }
@@ -122,7 +123,7 @@ public:
             cout << arr.Get(i) << "\n";
     }
 
-    ArraySequence<Pair_for_dict<TKey, TElem>> Get() {
+    ArraySequence<KeyValuePair<TKey, TElem>> Get() {
         return tree->GetKeyArray();
     }
 

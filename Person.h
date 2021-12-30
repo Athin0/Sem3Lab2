@@ -5,7 +5,11 @@
 #ifndef SEM3LAB2_PERSON_H
 #define SEM3LAB2_PERSON_H
 
-#include "string"
+#include <iostream>
+
+using std::string;
+using std::cout;
+using std::cin;
 
 struct Person {
 private:
@@ -119,7 +123,6 @@ Person createPerson() {
     cin >> year;
     return *(new Person(name, year));
 }
-
 
 int GetIntFromPerson(Person men) {
     return men.GetBirthYear();

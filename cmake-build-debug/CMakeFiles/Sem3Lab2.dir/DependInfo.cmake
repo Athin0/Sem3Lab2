@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/main.cpp" "/cygdrive/c/Users/arina/CLionProjects/Sem3Lab2/cmake-build-debug/CMakeFiles/Sem3Lab2.dir/main.cpp.o"
+  "/cygdrive/c/Users/arina/mommy/Projects/Gist/Sem3Lab4/main.cpp" "/cygdrive/c/Users/arina/mommy/Projects/Gist/Sem3Lab4/cmake-build-debug/CMakeFiles/Sem3Lab2.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
