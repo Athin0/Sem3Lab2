@@ -20,7 +20,8 @@ using std::string;
 using std::cin;
 
 const char *PATH_FILE = "C:\\Users\\arina\\mommy\\Projects\\Gist\\Sem3Lab4\\file0.txt";
-const char *PATH_FILE_TO = "C:\\Users\\arina\\mommy\\Projects\\Gist\\Sem3Lab4\\fileTO.txt";
+const char *PATH_FILE_TO = "C:\\Users\\arina\\mommy\\Projects\\Gist\\Sem3Lab4\\file0.txt";
+//const char *PATH_FILE_TO = "C:\\Users\\arina\\mommy\\Projects\\Gist\\Sem3Lab4\\fileTO.txt";
 
 ifstream fin; //откуда
 ofstream fout; //куда

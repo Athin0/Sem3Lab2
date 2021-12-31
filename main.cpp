@@ -9,7 +9,7 @@ int main() {
     //menuHistogram();
     //menuBag();
     FibHeap<int> a(cmp);
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 10; i++) {
         a.Add(i * 31 + 2);
     }
     a.ExtractMin();

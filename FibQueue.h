@@ -124,7 +124,7 @@ public:
     }
 // Функция для поиска данного узла  и изменения его значения
 
-    node<T> *Find(node<T> *vert, T old_val, T val) {
+    node<T> *FindAndChange(node<T> *vert, T old_val, T val) {
         node<T> *found = nullptr;
         node<T> *temp = vert;
         temp->mark = true;
@@ -137,13 +137,12 @@ public:
         }
         if (found_ptr == nullptr) {
             if (temp->child != nullptr)
-                Find(temp->child, old_val, val);
+                FindAndChange(temp->child, old_val, val);
             if ((temp->right)->mark != true)
-                Find(temp->right, old_val, val);
+                FindAndChange(temp->right, old_val, val);
         }
         temp->mark = false;
-        found = found_ptr;
-        return found;
+        return found_ptr;
     }
 
 // Удаление узла из кучи
@@ -152,7 +151,7 @@ public:
             throw Empty("The heap is empty");
         else {
             // Уменьшаем значение узла до минимума
-            Find(min, val, MIN_POOSIBLE_VALUE);
+            auto a = FindAndChange(min, val, MIN_POOSIBLE_VALUE);
             // Вызов функции Extract_min для
             // удаляем минимальное значение узла, равное 0
             ExtractMin();
@@ -211,7 +210,6 @@ private:
 
     void killLRlinks(node<T> *Node) {
         if (Node->left != Node) {
-
             Node->right->left = Node->left;
             Node->left->right = Node->right;
         }
@@ -296,17 +294,12 @@ private:
             throw Empty("min");
         if (found == nullptr)
             throw Empty("found");
-
-
         found->key = val;
-
         node<T> *temp = found->parent;
-
         if (temp != nullptr && found->key < temp->key) {
             removeChild(found);    //выкидывает found в корни
             cascadingCut(temp);    //помечаем вершину из которой удалили
         }
-
         if (found->key < min->key)
             min = found;
 
